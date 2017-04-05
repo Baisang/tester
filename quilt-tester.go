@@ -271,7 +271,7 @@ func (ts *testSuite) run() error {
 	}
 
 	// Wait a little bit longer for any container bootstrapping after boot.
-	time.Sleep(30 * time.Second)
+	time.Sleep(90 * time.Second)
 
 	var err error
 	if ts.test != "" {
@@ -285,6 +285,20 @@ func (ts *testSuite) run() error {
 		} else {
 			l.println(".... Failed")
 			ts.passed = false
+
+			l.println(ts.output)
+			l.infoln("Waiting a few minutes to retry...")
+			time.Sleep(180 * time.Second)
+			l.println(".. " + filepath.Base(ts.test))
+			ts.output, err = runTest(ts.test)
+
+			if err == nil {
+				l.println(".... Passed on second try!")
+				ts.passed = true
+			} else {
+				l.println("..., Failed on second try")
+			}
+
 		}
 	}
 
