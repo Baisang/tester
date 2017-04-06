@@ -40,9 +40,9 @@
 export PATH=${GOPATH}/bin:${PATH}
 
 go install -v github.com/quilt/quilt
-go get -v github.com/quilt/tester
+go get -v github.com/baisang/tester
 
-cd $GOPATH/src/github.com/quilt/tester
+cd $GOPATH/src/github.com/baisang/tester
 make tests
 tester --preserve-failed -testRoot=./tests -junitOut=${WORKSPACE}/report.xml</command>
     </hudson.tasks.Shell>
